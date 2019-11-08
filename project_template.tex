@@ -1,0 +1,110 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[hmargin=2cm,vmargin=2cm]{geometry}
+\usepackage{hyperref}
+
+\title{Genetic Algorithms and Evolutionary Computing\\
+Template for project report}
+\date{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+\emph{Please use this template to structure your report to facilitate the reading and evaluation.\\
+Do not repeat information from the textbook (e.g.\ if you use a crossover operator described in the book: don't copy the explanation or algorithm, but refer to the relevant page).
+The report should be $\approx$ 10 pages long; if useful you can add extra details in appendices (not included in the $\approx$ 10 pages).}
+\section{Existing genetic algorithm}
+
+Perform \emph{a limited set} of experiments by varying the parameters of the existing genetic algorithm (population size, probabilities, \ldots) and evaluate the performance (quality of the solutions).
+\begin{enumerate}
+
+\item Data set(s) used  \& explain why you selected these data set(s)
+\item Parameters considered and intervals/values
+\item  Performance criteria used
+\item Test results 
+\item Discussion of test results
+
+\end{enumerate}
+
+\section{Stopping criterion}
+Implement a stopping criterion that avoids that rather useless iterations (generations) are computed.
+\begin{enumerate}
+\item	 Stopping criterion \& explain why you selected this criterion
+\item Test results (incl.\ performance criteria and parameter settings)
+\item Discussion of test results
+
+\end{enumerate}
+
+\section{Other representation and appropriate operators  (main task)}
+Implement and use another representation and appropriate crossover and mutation operators. Perform some parameter tuning to identify proper combinations of the parameters. 
+\begin{enumerate}
+\item	 Representation
+\item Crossover operators \& explain why you selected the operators
+\item Mutation operators \& explain why you selected the operators
+\item Parameter tuning: parameters considered and intervals/values
+\item Data set(s) used  \& explain why you selected these data set(s)
+\item Test results (incl.\ performance criteria and parameter settings)
+\item Discussion of test results
+
+\end{enumerate}
+
+\section{Local optimisation}
+Test to which extent a local optimisation heuristic can improve the result.
+\begin{enumerate}
+\item	Local optimisation heuristic \& explain why you selected this heuristic
+\item Test results (incl.\ performance criteria and parameter settings)
+\item Discussion of test results
+
+\end{enumerate}
+
+
+
+\section{Benchmark problems}
+Test the performance of your algorithm using \emph{some} benchmark problems (available on Toledo) and critically evaluate the achieved performance.\\
+{\small
+Keep in mind that for a large number of cities the search space is extremely large! If your algorithm doesn't perform well for a rather small number of cities, it doesn't make sense to use it for a benchmark problem with a  large number of cities ...\\
+\emph{Note}: For most of the benchmark problems the length of the optimal tour is known. However, the Matlab template program scales the data. Therefore this scaling must be switched off to be able to compare your result with the optimal tour length.
+}
+\begin{enumerate}
+\item	 List of benchmark problems
+\item Test results (incl.\ performance criteria and parameter settings)
+\item Discussion of test results
+
+\end{enumerate}
+
+
+\section{Other task(s)}
+You should select \emph{at least one} task from the list below:
+{\small
+\begin{enumerate}
+\item Implement and use two other parent selection methods, i.e.\  fitness proportional selection and tournament selection. Compare the results with those obtained using the default rank-based selection. 
+\item Implement one survivor selection strategy (besides the already implemented elitism). Perform experiments and evaluate the results. 
+\item Implement and use one of the techniques aimed at preserving population diversity (e.g.\ subpopulations/islands, crowding, \ldots). Perform experiments and evaluate the results.
+\item Incorporate an adaptive or self-adaptive parameter control strategy (e.g.\  parameters that depend on the state of the population, parameters that co-evolve with the population, \ldots). Perform experiments and evaluate the results. 
+\end{enumerate}
+}
+
+\noindent
+For each task:
+\begin{enumerate}
+\item	 Description of implementation
+\item	 Description of the experiments
+\item Test results
+\item Discussion of test results
+
+\end{enumerate}
+
+\section*{Time spent on the project}
+\begin{enumerate}
+\item	For each student of the team: estimate how many hours spent on the project (NOT including studying textbook and other reading material).
+\begin{enumerate}
+\item	
+\item
+\end{enumerate}
+\item	Briefly discuss how the work was distributed among the team members.
+\end{enumerate}
+
+\end{document}
+
