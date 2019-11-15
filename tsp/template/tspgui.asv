@@ -13,8 +13,8 @@ PR_CROSS=.95;     % probability of crossover
 PR_MUT=.05;       % probability of mutation
 LOCALLOOP=0;      % local loop removal
 CROSSOVER = 'xalt_edges';  % default crossover operator
-var_bestn = 0.1*MAXGEN; %number of generations taken into account when calculating the variation of the best value
-stopping_treshold = 0.05; %minimum variation of the best fitness by which the algorithm is stopped before reaching MAXGEN 
+var_bestn = 0.1*MAXGEN;
+stopping_treshold = 0.05;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -104,9 +104,9 @@ runbutton = uicontrol(ph,'Style','pushbutton','String','START','Position',[0 10 
 stoppingslider1 = uicontrol(ph,'Style','slider','Max',100,'Min',0,'Value',round(var_bestn),'Sliderstep',[0.01 0.05],'Position',[130 120 150 20],'Callback',@stoppingslider1_Callback);
 stoppingslider1txt = uicontrol(ph,'Style','text','String','# gen STOP','Position',[0 120 130 20]);
 stoppingslider1v = uicontrol(ph,'Style','text','String',round(var_bestn),'Position',[280 120 50 20]);
-stoppingslider2 = uicontrol(ph,'Style','slider','Max',100,'Min',0,'Value',round(stopping_treshold*100),'Sliderstep',[0.01 0.05],'Position',[130 100 150 20],'Callback',@stoppingslider2_Callback);
-stoppingslider2txt = uicontrol(ph,'Style','text','String','var best N % of 1 unit distance','Position',[0 100 130 20]);
-stoppingslider2v = uicontrol(ph,'Style','text','String',round(stopping_treshold*100),'Position',[280 100 50 20]);
+stoppingslider2 = uicontrol(ph,'Style','slider','Max',1,'Min',0,'Value',round(stopping_treshold),'Sliderstep',[0.01 0.05],'Position',[130 100 150 20],'Callback',@stoppingslider2_Callback);
+stoppingslider2txt = uicontrol(ph,'Style','text','String','var best N','Position',[0 100 130 20]);
+stoppingslider2v = uicontrol(ph,'Style','text','String',round(stopping_treshold),'Position',[280 100 50 20]);
 
 set(fh,'Visible','on');
 
@@ -180,18 +180,17 @@ set(fh,'Visible','on');
         CROSSOVER = CROSSOVER{1};
     end
     function stoppingslider1_Callback(hObject,eventdata)
-        fslider_valuef = get(hObject,'Value');
-        slider_value = round(fslider_valuef);
+        fslider_value = get(hObject,'Value');
+        slider_value = get(hObject,'Value');
         set(hObject,'Value',slider_value);
         set(stoppingslider1v,'String',slider_value);
         var_bestn = round(slider_value);
     end
     function stoppingslider2_Callback(hObject,eventdata)
-        slider_valuef = get(hObject,'Value');
-        slider_value = round(slider_valuef);
+        slider_value = get(hObject,'Value');
         set(hObject,'Value',slider_value);
         set(stoppingslider2v,'String',slider_value);
-        stopping_treshold = round(slider_value,2);
+        stopping_treshold = round(slider_value);
     end
     function runbutton_Callback(hObject,eventdata)
         %set(ncitiesslider, 'Visible','off');

@@ -1,4 +1,4 @@
-function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3)
+function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3,var_bestn,stopping_treshold)
 % usage: run_ga(x, y, 
 %               NIND, MAXGEN, NVAR, 
 %               ELITIST, STOP_PERCENTAGE, 
@@ -16,42 +16,59 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
 % CROSSOVER: the crossover operator
 % calculate distance matrix between each pair of cities
 % ah1, ah2, ah3: axes handles to visualise tsp
-{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER LOCALLOOP}
+% varbestn: specifies how many generations are included in the calculation of
+% the mean variation of the best fitness 
+% stopping_treshold: what is the minimum variation in best fitness we allow
+% (over N generations)
+{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER LOCALLOOP};
 
-
+        
         GGAP = 1 - ELITIST;
-        mean_fits=zeros(1,MAXGEN+1);
-        worst=zeros(1,MAXGEN+1);
+        mean_fits=zeros(1,MAXGEN+1); %stores the mean fitness for each generation to visualise it 
+        worst=zeros(1,MAXGEN+1);%stores the worst fitness of each generation
         Dist=zeros(NVAR,NVAR);
         for i=1:size(x,1)
             for j=1:size(y,1)
-                Dist(i,j)=sqrt((x(i)-x(j))^2+(y(i)-y(j))^2);
+                Dist(i,j)=sqrt((x(i)-x(j))^2+(y(i)-y(j))^2); % calculates the distance between all the different points
             end
         end
         % initialize population
         Chrom=zeros(NIND,NVAR);
         for row=1:NIND
-        	%Chrom(row,:)=path2adj(randperm(NVAR));
+        	Chrom(row,:)=path2adj(randperm(NVAR));
             %randperm creates a random permutation of integers between 1
             %and NVAR --> so here we are dealing with an integer
             %representation, but  why do is the path2adj function
             %immediatelly used?
-            Chrom(row,:)=adj2path(randperm(NVAR));
-            %Chrom(row,:)=randperm(NVAR);
+            %Chrom(row,:)=adj2path(randperm(NVAR));
+            %Chrom(row,:)=randperm(NVAR); % gives a row of random
+            %numbers where each number only occurs once --> can be used for the random permutation representation 
         end
         gen=0;
         % number of individuals of equal fitness needed to stop
         stopN=ceil(STOP_PERCENTAGE*NIND);
         % evaluate initial population
-        ObjV = tspfun(Chrom,Dist);
-        best=zeros(1,MAXGEN);
+        ObjV = tspfun(Chrom,Dist); %transformation from genotype to phenotype + defining the fitness based on this
+        best=zeros(1,MAXGEN);%stores the best fitness of each generation 
+        %var_bestn = 0.05*MAXGEN; % the number of previous generations that will be taken into account for the stopping algorithm
+        %stopping_treshold = 0.005;
+        var_best_mean = stopping_treshold + 1; % defining an a var_best_mean for the first var_bestn iteraties that is larger than the stopping treshold
         % generational loop
-        while gen<MAXGEN
+        while gen<MAXGEN  && var_best_mean > stopping_treshold
             sObjV=sort(ObjV);
           	best(gen+1)=min(ObjV);
         	minimum=best(gen+1);
             mean_fits(gen+1)=mean(ObjV);
             worst(gen+1)=max(ObjV);
+            %calculation the variation of the best fitness to use it in the
+            %stopping criterion
+            if gen > var_bestn
+                var_best1 = best(gen-(var_bestn-1):gen+1);
+                var_best2 = best(gen-(var_bestn):gen);
+                var_best = var_best2 - var_best1;
+                var_best_mean = abs(mean(var_best));
+                disp(var_best_mean)
+            end
             for t=1:size(ObjV,1)
                 if (ObjV(t)==minimum)
                     break;
@@ -78,5 +95,8 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
             Chrom = tsp_ImprovePopulation(NIND, NVAR, Chrom,LOCALLOOP,Dist);
         	%increment generation counter
         	gen=gen+1;            
+        end
+        if gen < MAXGEN
+            disp('het stopping algorithme heeft zijn werk gedaan')
         end
 end
