@@ -11,7 +11,6 @@ function Adj = path2adj(Path);
 		Adj(Path(t))=Path(t+1);
 	end
 	Adj(Path(size(Path,2)))=Path(1);
-	
 
 % End of function
 

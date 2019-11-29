@@ -12,7 +12,7 @@ function Path = adj2path(Adj);
 	for t=2:size(Adj,2)
 		Path(t)=Adj(walking_index);
 		walking_index=Path(t);
-	end
+    end
 
 
 % End of function

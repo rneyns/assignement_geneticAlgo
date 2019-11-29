@@ -12,7 +12,8 @@ STOP_PERCENTAGE=.95;    % percentage of equal fitness individuals for stopping
 PR_CROSS=.95;     % probability of crossover
 PR_MUT=.05;       % probability of mutation
 LOCALLOOP=0;      % local loop removal
-CROSSOVER = 'xalt_edges';  % default crossover operator
+%CROSSOVER = 'xalt_edges';  % default crossover operator for --> = alternating edges crossover for the adjacency representation
+CROSSOVER = 'PMX'; 
 var_bestn = 0.1*MAXGEN; %number of generations taken into account when calculating the variation of the best value
 stopping_treshold = 0.05; %minimum variation of the best fitness by which the algorithm is stopped before reaching MAXGEN 
 
