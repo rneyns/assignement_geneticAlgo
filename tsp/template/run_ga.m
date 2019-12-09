@@ -89,7 +89,7 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         	SelCh=select('sus', Chrom, FitnV, GGAP);
         	%recombine individuals (crossover)
             SelCh = recombin(CROSSOVER,SelCh,PR_CROSS)
-            SelCh = mutateTSP('inversion',SelCh,PR_MUT)
+            SelCh = mutateTSP('ISM',SelCh,PR_MUT);
             %evaluate offspring, call objective function
         	ObjVSel = tspfun(SelCh,Dist);
             %reinsert offspring into population
@@ -99,6 +99,7 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         	%increment generation counter
         	gen=gen+1;            
         end
+        Chrom
         if gen < MAXGEN
             disp("The stopping criterion did it's job")
         end
