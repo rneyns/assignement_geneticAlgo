@@ -65,11 +65,10 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
             
             %calculation the variation of the best fitness to use it in the
             %stopping criterion
-            if gen > var_bestn
-                var_best1 = best(gen-(var_bestn-1):gen+1);
-                var_best2 = best(gen-(var_bestn):gen);
-                var_best = var_best2 - var_best1;
-                var_best_mean = abs(mean(var_best));
+           if gen > var_bestn
+                avg_bestn = mean(best(gen-var_bestn:gen));
+                var_best = best(gen-(var_bestn):gen);
+                var_best_mean = mean((var_best-avg_bestn).^2);
             end
             
             if var_best_mean < stopping_treshold
