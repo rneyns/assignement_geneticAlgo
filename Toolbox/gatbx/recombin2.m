@@ -27,14 +27,14 @@
 %  History:   18.03.94     file created
 
 
-function NewChrom = recombin(REC_F, Chrom, RecOpt, SUBPOP);
+function NewChrom = recombin2(Chrom, RecOpt, Dist)
 
 
 % Check parameter consistency
    if nargin < 2, error('Not enough input parameter'); end
 
    % Identify the population size (Nind)
-   [Nind,Nvar] = size(Chrom);
+   [Nind,~] = size(Chrom);
  
    if nargin < 4, SUBPOP = 1; end
    if nargin > 3,
@@ -59,7 +59,7 @@ function NewChrom = recombin(REC_F, Chrom, RecOpt, SUBPOP);
    NewChrom = [];
    for irun = 1:SUBPOP,
       ChromSub = Chrom((irun-1)*Nind+1:irun*Nind,:);  
-      NewChromSub = feval(REC_F,ChromSub, RecOpt);
+      NewChromSub = HX1(ChromSub, RecOpt,Dist);
       NewChrom=[NewChrom; NewChromSub];
    end
 

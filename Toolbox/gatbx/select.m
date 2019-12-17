@@ -36,10 +36,11 @@ function SelCh = select(SEL_F, Chrom, FitnV, GGAP, SUBPOP);
    if VarF ~= 1, error('FitnV must be a column vector'); end
   
    if nargin < 5, SUBPOP = 1; end
-   if nargin > 4,
+   if nargin > 4
       if isempty(SUBPOP), SUBPOP = 1;
       elseif isnan(SUBPOP), SUBPOP = 1;
-      elseif length(SUBPOP) ~= 1, error('SUBPOP must be a scalar'); end
+      elseif length(SUBPOP) ~= 1, error('SUBPOP must be a scalar'); 
+      end
    end
 
    if (NindCh/SUBPOP) ~= fix(NindCh/SUBPOP), error('Chrom and SUBPOP disagree'); end
@@ -50,7 +51,8 @@ function SelCh = select(SEL_F, Chrom, FitnV, GGAP, SUBPOP);
       if isempty(GGAP), GGAP = 1;
       elseif isnan(GGAP), GGAP = 1;
       elseif length(GGAP) ~= 1, error('GGAP must be a scalar');
-      elseif (GGAP < 0), error('GGAP must be a scalar bigger than 0'); end
+      elseif (GGAP < 0), error('GGAP must be a scalar bigger than 0'); 
+      end
    end
 
 % Compute number of new individuals (to select)

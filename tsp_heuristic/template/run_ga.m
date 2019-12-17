@@ -79,8 +79,9 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         	%select individuals for breeding
         	SelCh=select('sus', Chrom, FitnV, GGAP);
         	%recombine individuals (crossover)
-            SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
-            SelCh = mutateTSP('ISM',SelCh,PR_MUT);
+            %SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
+            SelCh = recombin2(SelCh,PR_CROSS,Dist);
+            SelCh = mutateTSP2(SelCh,PR_MUT,Dist);
             %evaluate offspring, call objective function
         	ObjVSel = tspfunpath(SelCh,Dist);
             %reinsert offspring into population
