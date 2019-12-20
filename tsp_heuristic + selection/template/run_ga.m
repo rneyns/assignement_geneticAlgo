@@ -77,7 +77,9 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         	%assign fitness values to entire population
         	FitnV=ranking(ObjV);
         	%select individuals for breeding
-        	SelCh=select('sus', Chrom, FitnV, GGAP);
+            SelCh=select("rankBasedRouletteWheelSelection", Chrom, FitnV, GGAP);
+            %SelCh=select("tournamentSelection", Chrom, FitnV, GGAP);
+        	%SelCh=select("sus", Chrom, FitnV, GGAP);
         	%recombine individuals (crossover)
             %SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
             SelCh = recombin2(SelCh,PR_CROSS,Dist);

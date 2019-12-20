@@ -9,7 +9,7 @@ function NewChrom = HMO(OldChrom,Dist)
 
 city1 = randi(length(OldChrom));
 Dist_short = Dist(city1,:);
-Dist_short(city1) = NaN
+Dist_short(city1) = NaN;
 [~, city2] = min(Dist_short);
 
 pointer1 = find(OldChrom == city1);
