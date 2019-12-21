@@ -1,4 +1,4 @@
-function Best_val = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, STOP_PERCENTAGE)
+function Best_val = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT, CROSSOVER, STOP_PERCENTAGE)
 % usage: run_ga(x, y, 
 %               NIND, MAXGEN, NVAR, 
 %               ELITIST, STOP_PERCENTAGE, 
@@ -16,7 +16,7 @@ function Best_val = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT,
 % CROSSOVER: the crossover operator
 % calculate distance matrix between each pair of cities
 % ah1, ah2, ah3: axes handles to visualise tsp
-{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER LOCALLOOP}
+{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER}
 
         %defining the parameters for the stopping treshold
         var_bestn = 0.5*MAXGEN;
