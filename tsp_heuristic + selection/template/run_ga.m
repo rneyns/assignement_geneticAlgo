@@ -44,6 +44,8 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         best=zeros(1,MAXGEN);
         % generational loop
         var_best_mean = stopping_treshold + 1; % defining an a var_best_mean for the first var_bestn iteraties that is larger than the stopping treshold
+        %starting the timer to measure runtime.
+        tic
         % generational loop
         while gen<MAXGEN
             sObjV=sort(ObjV);
@@ -72,7 +74,7 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
             end
             
             if var_best_mean < stopping_treshold
-                break;
+                %break;
             end
         	%assign fitness values to entire population
         	FitnV=ranking(ObjV);
@@ -93,4 +95,7 @@ function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR
         	%increment generation counter
         	gen=gen+1;            
         end
+        %stopping the time and showing the runtime
+        toc;
+        elapsedTime = toc
 end
