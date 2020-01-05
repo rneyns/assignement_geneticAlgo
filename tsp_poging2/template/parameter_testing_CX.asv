@@ -15,11 +15,10 @@ end
 percentage_crossover = 0:10:100;
 percentage_crossover2 = 100:-10:0;
 [X,Y] = meshgrid(0:10:100,0:10:100);
-best_arrayf(1,1) = 20;
 
 figure;
 surf(X,Y,best_arrayf)
-zlim([12 20])
-xlabel("% mutation")
-ylabel("% crossover")
+zlim([
+xlabel("% crossover")
+ylabel("% mutation")
 zlabel("shortest route length")
