@@ -1,12 +1,9 @@
 % low level function for calculating an offspring
-% given 2 parent in the Parents - agrument
-% Parents is a matrix with 2 rows, each row
-% represent the genocode of the parent
+%   - INPUT : 2 parents and the distance matrix
+
 
 function offspring = HX1_intermediate(parent1,parent2,Dist)
-   start_point1 = randi(length(parent1))
-   parent1
-   parent2
+   start_point1 = randi(length(parent1));
    if start_point1 == 1
        pointer1 = length(parent1);
        pointer2 = start_point1 + 1;
@@ -18,7 +15,7 @@ function offspring = HX1_intermediate(parent1,parent2,Dist)
        pointer2 = start_point1 + 1;
    end
    
-   start_point2 = find(parent2 == parent1(start_point1))
+   start_point2 = find(parent2 == parent1(start_point1));
    
    if start_point2 == 1
        pointer3 = length(parent1);
@@ -120,7 +117,6 @@ function offspring = HX1_intermediate(parent1,parent2,Dist)
            else
                 pointeri = pointer4 + 1;
            end
-           parent2(pointeri)
            while parent2(pointeri) == 0
                if pointeri == length(parent1)
                    pointeri = 1;

@@ -3,6 +3,10 @@
 % TSP tours
 %
 % KULeuven, november 2019 
+% email: Robbe.Neyns@studen.kuleuven.be
+%
+%
+% Syntax:  NewChrom = xals_edges(OldChrom, XOVR)
 %
 % Input parameters:
 %    OldChrom  - Matrix containing the chromosomes of the old

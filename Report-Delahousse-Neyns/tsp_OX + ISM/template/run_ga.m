@@ -1,4 +1,4 @@
-function best_time = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT, CROSSOVER, STOP_PERCENTAGE)
+function run_ga(x, y, NIND, MAXGEN, NVAR, ELITIST, STOP_PERCENTAGE, PR_CROSS, PR_MUT, CROSSOVER, LOCALLOOP, ah1, ah2, ah3)
 % usage: run_ga(x, y, 
 %               NIND, MAXGEN, NVAR, 
 %               ELITIST, STOP_PERCENTAGE, 
@@ -16,7 +16,7 @@ function best_time = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT
 % CROSSOVER: the crossover operator
 % calculate distance matrix between each pair of cities
 % ah1, ah2, ah3: axes handles to visualise tsp
-{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER}
+{NIND MAXGEN NVAR ELITIST STOP_PERCENTAGE PR_CROSS PR_MUT CROSSOVER LOCALLOOP}
 
         %defining the parameters for the stopping treshold
         var_bestn = 0.5*MAXGEN;
@@ -44,7 +44,7 @@ function best_time = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT
         best=zeros(1,MAXGEN);
         % generational loop
         var_best_mean = stopping_treshold + 1; % defining an a var_best_mean for the first var_bestn iteraties that is larger than the stopping treshold
-        %starting the timer to measure runtime.
+        %starting the timer
         tic
         % generational loop
         while gen<MAXGEN
@@ -59,10 +59,10 @@ function best_time = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT
                 end
             end
             
-            %visualizeTSP(x,y,Chrom(t,:), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
+            visualizeTSP(x,y,Chrom(t,:), minimum, ah1, gen, best, mean_fits, worst, ah2, ObjV, NIND, ah3);
 
             if (sObjV(stopN)-sObjV(1) <= 1e-15)
-                  %break;
+                  break;
             end  
             
             %calculation the variation of the best fitness to use it in the
@@ -79,24 +79,20 @@ function best_time = run_ga2(x, y, NIND, MAXGEN, NVAR, ELITIST, PR_CROSS, PR_MUT
         	%assign fitness values to entire population
         	FitnV=ranking(ObjV);
         	%select individuals for breeding
-            %SelCh=select("rankBasedRouletteWheelSelection", Chrom, FitnV, GGAP);
-            %SelCh=select("tournamentSelection", Chrom, FitnV, GGAP);
-        	SelCh=select("sus", Chrom, FitnV, GGAP);
+        	SelCh=select('sus', Chrom, FitnV, GGAP);
         	%recombine individuals (crossover)
-            %SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
-            SelCh = recombin2(SelCh,PR_CROSS,Dist);
-            %SelCh = mutateTSP2(SelCh,PR_MUT,Dist);
+            SelCh = recombin(CROSSOVER,SelCh,PR_CROSS);
+            SelCh = mutateTSP('ISM',SelCh,PR_MUT);
             %evaluate offspring, call objective function
         	ObjVSel = tspfunpath(SelCh,Dist);
             %reinsert offspring into population
         	[Chrom ObjV]=reins(Chrom,SelCh,1,1,ObjV,ObjVSel);
             
-            %Chrom = tsp_ImprovePopulation_path(NIND, NVAR, Chrom,LOCALLOOP,Dist);
+            Chrom = tsp_ImprovePopulation_path(NIND, NVAR, Chrom,LOCALLOOP,Dist);
         	%increment generation counter
         	gen=gen+1;            
         end
-        %stopping the time and showing the runtime
-        toc;
-        elapsedTime = toc;
-        best_time = best(end);
+        %stopping the timer
+        toc
+        elapsedTime = toc
 end

@@ -1,3 +1,5 @@
+%redundant script to create figures for the report
+
 data = load(['datasets/rondrit127.tsp']);
 x=data(:,1)/max([data(:,1);data(:,2)]);
 y=data(:,2)/max([data(:,1);data(:,2)]);
@@ -16,7 +18,7 @@ percentage_crossover = 0:10:100;
 percentage_crossover2 = 100:-10:0;
 [X,Y] = meshgrid(0:10:100,0:10:100);
 best_arrayf(1,1) = 20;
-
+save('CX_figure.mat','best_arrayf')
 figure;
 surf(X,Y,best_arrayf)
 zlim([12 20])

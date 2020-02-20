@@ -1,8 +1,12 @@
-%Ordered crossover operator (OX1)
+%Partially mapped crossover operator (PMX)
 % this crossover assumes that the path representation is used to represent
 % TSP tours
 %
 % KULeuven, november 2019 
+% email: Robbe.Neyns@studen.kuleuven.be
+%
+%
+% Syntax:  NewChrom = xals_edges(OldChrom, XOVR)
 %
 % Input parameters:
 %    OldChrom  - Matrix containing the chromosomes of the old
@@ -16,7 +20,7 @@
 %                after mating, ready to be mutated and/or evaluated,
 %                in the same format as OldChrom.
 
-function NewChrom = OX1(OldChrom, XOVR);
+function NewChrom = PMX(OldChrom, XOVR);
 
 if nargin < 2, XOVR = NaN; end
    
@@ -28,10 +32,11 @@ if nargin < 2, XOVR = NaN; end
    end
    
    for row=1:2:maxrows
+	
      	% crossover of the two chromosomes
    	% results in 2 offsprings
 	if rand<XOVR			% recombine with a given probability
-        offspring = OX1_intermediate(OldChrom(row,:),OldChrom(row+1,:));
+        offspring = PMX_intermediate(OldChrom(row,:),OldChrom(row+1,:));
         NewChrom(row,:) = offspring(1,:);
 		NewChrom(row+1,:) = offspring(2,:);
 	else
@@ -43,3 +48,7 @@ if nargin < 2, XOVR = NaN; end
    if rem(rows,2)~=0
 	   NewChrom(rows,:)=OldChrom(rows,:);
    end
+
+   
+
+% End of function
